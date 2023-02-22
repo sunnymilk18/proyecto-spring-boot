@@ -13,7 +13,9 @@ public class ContractServices {
     @Autowired
     private ContractRepository contractRepository;
 
+
     public Contract createContract(Contract contract) {
+
         return contractRepository.save(contract);
     }
 
@@ -31,19 +33,10 @@ public class ContractServices {
     public Contract updateContractById(Contract contract) {
         Contract existingContract = contractRepository.findById(contract.getId()).orElse(null);
         if (existingContract != null) {
-            existingContract.setFechaContrato(contract.getFechaContrato());
-            existingContract.setNombreEmpresa(contract.getNombreEmpresa());
-            existingContract.setNombreTrabajador(contract.getNombreTrabajador());
-            existingContract.setNacionalidad(contract.getNacionalidad());
-            existingContract.setEdad(contract.getEdad());
-            existingContract.setRut(contract.getRut());
-            existingContract.setDomicilio(contract.getDomicilio());
-            existingContract.setRegion(contract.getRegion());
-            existingContract.setNumeroContacto(contract.getNumeroContacto());
-            existingContract.setEmail(contract.getEmail());
-            existingContract.setCargo(contract.getCargo());
-            existingContract.setTipoContrato(contract.getTipoContrato());
-            existingContract.setSueldo(contract.getSueldo());
+            existingContract.setContractDate(contract.getContractDate());
+            existingContract.setOccupation(contract.getOccupation());
+            existingContract.setTypeContract(contract.getTypeContract());
+            existingContract.setSalary(contract.getSalary());
             return contractRepository.save(existingContract);
         }else {
             return null;
@@ -54,6 +47,4 @@ public class ContractServices {
         contractRepository.deleteById(id);
         return "El contrato a sido borrado " + id;
     }
-
-
 }

@@ -1,187 +1,115 @@
 package cl.com.apirest.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "contratos")
+@Table(name = "contracts")
 public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
-    @Column(name = "fecha_contrato")
-    private String fechaContrato;
+    @Column(name = "contract_date", nullable = false)
+    private String contractDate;
 
-    @Column(name = "nombre_empresa")
-    private String nombreEmpresa;
+    @Column(name = "occupation", nullable = false)
+    private String occupation;
 
-    @Column(name = "nombre_trabajador")
-    private String nombreTrabajador;
+    @Column(name = "type_contract", nullable = false)
+    private String typeContract;
 
-    @Column(name = "nacionalidad")
-    private String nacionalidad;
+    @Column(name = "salary", nullable = false)
+    private int salary;
 
-    @Column(name = "edad")
-    private int edad;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private Company company;
 
-    @Column(unique = true, name = "rut")
-    private String rut;
-
-    @Column(name = "domicilio")
-    private String domicilio;
-
-    @Column(name = "region")
-    private String region;
-
-    @Column(name = "numero_contacto")
-    private String numeroContacto;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "cargo")
-    private String cargo;
-
-    @Column(name = "tipo_contrato")
-    private String tipoContrato;
-
-    @Column(name = "sueldo")
-    private int sueldo;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Contract() {
 
     }
 
+    public Contract(String contractDate, String occupation, String typeContract, int salary, Company company, User user) {
+        this.contractDate = contractDate;
+        this.occupation = occupation;
+        this.typeContract = typeContract;
+        this.salary = salary;
+        this.company = company;
+        this.user = user;
+    }
+
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getFechaContrato() {
-        return fechaContrato;
+    public String getContractDate() {
+        return contractDate;
     }
 
-    public void setFechaContrato(String fechaContrato) {
-        this.fechaContrato = fechaContrato;
+    public void setContractDate(String contractDate) {
+        this.contractDate = contractDate;
     }
 
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
+    public String getOccupation() {
+        return occupation;
     }
 
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
     }
 
-    public String getNombreTrabajador() {
-        return nombreTrabajador;
+    public String getTypeContract() {
+        return typeContract;
     }
 
-    public void setNombreTrabajador(String nombreTrabajador) {
-        this.nombreTrabajador = nombreTrabajador;
+    public void setTypeContract(String typeContract) {
+        this.typeContract = typeContract;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public int getSalary() {
+        return salary;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
-    public int getEdad() {
-        return edad;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
-    public String getRut() {
-        return rut;
+    public User getUser() {
+        return user;
     }
 
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getNumeroContacto() {
-        return numeroContacto;
-    }
-
-    public void setNumeroContacto(String numeroContacto) {
-        this.numeroContacto = numeroContacto;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getTipoContrato() {
-        return tipoContrato;
-    }
-
-    public void setTipoContrato(String tipoContrato) {
-        this.tipoContrato = tipoContrato;
-    }
-
-    public int getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(int sueldo) {
-        this.sueldo = sueldo;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "Contract{" +
-                "Id=" + Id +
-                ", fechaContrato='" + fechaContrato + '\'' +
-                ", nombreEmpresa='" + nombreEmpresa + '\'' +
-                ", nombreTrabajador='" + nombreTrabajador + '\'' +
-                ", nacionalidad='" + nacionalidad + '\'' +
-                ", edad=" + edad +
-                ", rut='" + rut + '\'' +
-                ", domicilio='" + domicilio + '\'' +
-                ", region='" + region + '\'' +
-                ", numeroContacto='" + numeroContacto + '\'' +
-                ", email='" + email + '\'' +
-                ", cargo='" + cargo + '\'' +
-                ", tipoContrato='" + tipoContrato + '\'' +
-                ", sueldo=" + sueldo +
+                "id=" + id +
+                ", contractDate='" + contractDate + '\'' +
+                ", occupation='" + occupation + '\'' +
+                ", typeContract='" + typeContract + '\'' +
+                ", salary=" + salary +
+                ", company=" + company +
+                ", user=" + user +
                 '}';
     }
 }

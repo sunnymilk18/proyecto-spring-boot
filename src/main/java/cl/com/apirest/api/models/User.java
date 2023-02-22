@@ -4,38 +4,49 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
 
-    @Column(name = "apellido")
-    private String apellido;
+    @Column(name = "user_last_name", nullable = false)
+    private String lastName;
 
-    @Column(unique = true, name = "rut")
+    @Column(unique = true, name = "user_rut", nullable = false)
     private String rut;
 
-    @Column(name = "edad")
-    private int edad;
 
-    @Column(name = "fecha_nacimiento")
-    private String fechaNacimiento;
+    @Column(name = "user_birthdate", nullable = false)
+    private String birthdate;
 
     @Size(max = 15)
-    @Column(name = "numero_contacto")
-    private String numeroContacto;
+    @Column(name = "user_contact_number", nullable = false)
+    private String contactNumber;
 
     @Email
-    @Column(name = "email")
+    @Column(name = "user_email", nullable = false)
     private String email;
+
+    @OneToOne(mappedBy = "user")
+    private Contract contract;
 
     public User() {
 
+    }
+
+    public User(String userName, String lastName, String rut, String birthdate, String contactNumber, String email, Contract contract) {
+        this.userName = userName;
+        this.lastName = lastName;
+        this.rut = rut;
+        this.birthdate = birthdate;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.contract = contract;
     }
 
     public long getId() {
@@ -46,20 +57,20 @@ public class User {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRut() {
@@ -70,28 +81,20 @@ public class User {
         this.rut = rut;
     }
 
-    public int getEdad() {
-        return edad;
+    public String getBirthdate() {
+        return birthdate;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public String getNumeroContacto() {
-        return numeroContacto;
-    }
-
-    public void setNumeroContacto(String numeroContacto) {
-        this.numeroContacto = numeroContacto;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getEmail() {
@@ -102,17 +105,25 @@ public class User {
         this.email = email;
     }
 
+    public Contract getContract() {
+        return contract;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                ", userName='" + userName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", rut='" + rut + '\'' +
-                ", edad=" + edad +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", numeroContacto='" + numeroContacto + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", contract=" + contract +
                 '}';
     }
 }

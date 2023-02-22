@@ -31,12 +31,11 @@ public class UserServices {
     public User updateUserById(User user) {
         User existingUser = userRepository.findById(user.getId()).orElse(null);
         if (existingUser != null) {
-            existingUser.setNombre(user.getNombre());
-            existingUser.setApellido(user.getApellido());
+            existingUser.setUserName(user.getUserName());
+            existingUser.setLastName(user.getLastName());
             existingUser.setRut(user.getRut());
-            existingUser.setFechaNacimiento(user.getFechaNacimiento());
-            existingUser.setEdad(user.getEdad());
-            existingUser.setNumeroContacto(user.getNumeroContacto());
+            existingUser.setBirthdate(user.getBirthdate());
+            existingUser.setContactNumber(user.getContactNumber());
             existingUser.setEmail(user.getEmail());
             return userRepository.save(existingUser);
         }else {

@@ -31,10 +31,10 @@ public class CompanyServices {
     public Company updateCompanyById(Company company) {
         Company existingCompany = companyRepository.findById(company.getId()).orElse(null);
         if (existingCompany != null) {
-            existingCompany.setNombre(company.getNombre());
+            existingCompany.setCompanyName(company.getCompanyName());
             existingCompany.setRut(company.getRut());
-            existingCompany.setDireccion(company.getDireccion());
-            existingCompany.setTelefono(company.getTelefono());
+            existingCompany.setAddress(company.getAddress());
+            existingCompany.setContactNumber(company.getContactNumber());
             existingCompany.setEmail(company.getEmail());
             return companyRepository.save(existingCompany);
         }else {

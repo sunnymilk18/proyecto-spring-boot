@@ -11,7 +11,7 @@
 	<groupId>cl.com.apirest</groupId>
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api</name>
+	<companyName>api</companyName>
 	<description>proyecto crud de springboot</description>
 	<properties>
 		<java.version>17</java.version>

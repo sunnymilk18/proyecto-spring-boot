@@ -39,7 +39,6 @@ public class CompanyController {
         return ResponseEntity.ok().body(companyServices.updateCompanyById(company));
     }
 
-
     @DeleteMapping("/company/delete/{id}")
     public ResponseEntity <Company> deleteCompany(@PathVariable Long id) {
         if (id == null) {

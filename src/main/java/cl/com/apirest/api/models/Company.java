@@ -1,49 +1,65 @@
 package cl.com.apirest.api.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.validator.constraints.UniqueElements;
+
+import java.util.List;
 
 @Entity
-@Table(name = "empresas")
+@Table(name = "company")
 public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
 
-    @Column(unique = true, name = "rut")
+    @Column(name = "company_rut", unique = true)
     private String rut;
 
-    @Column(name = "direccion")
-    private String direccion;
+    @Column(name = "company_address", nullable = false)
+    private String address;
 
-    @Column(name = "telefono")
-    private String telefono;
+    @Column(name = "company_contact_number", nullable = false)
+    private String contactNumber;
 
-    @Column(name = "email")
+    @Column(name = "company_email", nullable = false)
     private String email;
 
-    public Company(){
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Contract> contract;
 
+    public Company() {
+
+    }
+
+    public Company(String companyName, String rut, String address, String contactNumber, String email, List<Contract> contract) {
+        this.companyName = companyName;
+        this.rut = rut;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.contract = contract;
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getRut() {
@@ -54,20 +70,20 @@ public class Company {
         this.rut = rut;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public String getEmail() {
@@ -78,15 +94,24 @@ public class Company {
         this.email = email;
     }
 
+    public List<Contract> getContract() {
+        return contract;
+    }
+
+    public void setContract(List<Contract> contract) {
+        this.contract = contract;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
-                "Id=" + Id +
-                ", nombre='" + nombre + '\'' +
+                "id=" + id +
+                ", companyName='" + companyName + '\'' +
                 ", rut='" + rut + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", telefono='" + telefono + '\'' +
+                ", address='" + address + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", contract=" + contract +
                 '}';
     }
 }
